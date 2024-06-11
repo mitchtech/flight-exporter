@@ -1,0 +1,3 @@
+prometheus_client==0.20.0
+FlightRadarAPI==1.3.28
+python-dotenv==1.0.1
