@@ -1,0 +1,44 @@
+version: "3"
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+  flight-exporter:
+    container_name: flight-exporter
+    image: mitchtech/flight-exporter:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - ${FLIGHT_PORT}:${FLIGHT_PORT}
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - ${PROM_PORT}:9090
+    volumes:
+      - "./prometheus:/etc/prometheus"
+      - "prometheus_data:/prometheus"
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - "./grafana/provisioning/:/etc/grafana/provisioning/"
+      - "grafana_data:/var/lib/grafana"
+    ports:
+      -  ${GRAFANA_PORT}:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
