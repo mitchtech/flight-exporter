@@ -12,7 +12,8 @@ load_dotenv()
 # Seatac Airport (SEA) default location
 LAT = float(os.getenv('LAT', 47.4484)) 
 LON = float(os.getenv('LON', -122.3086))
-BOUNDS = int(os.getenv('BOUNDS', 1000)) # distance in meters
+BOUNDS = int(os.getenv('BOUNDS', 10000)) # distance in meters
+PORT = int(os.getenv('FLIGHT_PORT', 11019))
 
 fr_api = FlightRadar24API()
 bounds = fr_api.get_bounds_by_point(LAT, LON, BOUNDS)
@@ -92,7 +93,8 @@ class FlightCollector(Collector):
 
 
 if __name__ == '__main__':
-    start_http_server(8809)
+    print(f"Scanning for flights at {LAT}, {LON} with {BOUNDS} meter radius. /metrics on :{PORT}")
+    start_http_server(PORT)
     REGISTRY.register(FlightCollector())
     while True:
         time.sleep(1)
