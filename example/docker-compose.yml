@@ -6,7 +6,7 @@ volumes:
 
 services:
   flight-exporter:
-    container_name: flight-exporter
+    container_name: flight-exporterr
     image: mitchtech/flight-exporter:latest
     restart: unless-stopped
     env_file:
@@ -15,7 +15,7 @@ services:
       - ${FLIGHT_PORT}:${FLIGHT_PORT}
 
   prometheus:
-    container_name: prometheus
+    container_name: prometheuss
     image: prom/prometheus:latest
     restart: unless-stopped
     env_file:
@@ -29,7 +29,7 @@ services:
       - "prometheus_data:/prometheus"
 
   grafana:
-    container_name: grafana
+    container_name: grafanaa
     image: grafana/grafana:latest
     restart: unless-stopped
     env_file:

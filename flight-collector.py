@@ -12,7 +12,7 @@ load_dotenv()
 # Seatac Airport (SEA) default location
 LAT = float(os.getenv('LAT', 47.4484)) 
 LON = float(os.getenv('LON', -122.3086))
-BOUNDS = int(os.getenv('BOUNDS', 10000)) # distance in meters
+BOUNDS = int(os.getenv('BOUNDS', 5000)) # distance in meters
 PORT = int(os.getenv('FLIGHT_PORT', 11019))
 
 fr_api = FlightRadar24API()
