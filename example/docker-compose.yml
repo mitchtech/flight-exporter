@@ -6,6 +6,11 @@ volumes:
 
 services:
   flight-exporter:
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
     container_name: flight-exporter
     image: mitchtech/flight-exporter:latest
     restart: unless-stopped
